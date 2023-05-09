@@ -22,9 +22,9 @@ void gps_get(void){
 
 
 void back_check(void){
-      if((fabs(zero[0] - e_posi)<5 && fabs(zero[1]-n_posi)<5 && j==3)||f==1) {
+      if((fabs(zero[0] - e_posi) < 5 && fabs(zero[1] - n_posi) < 5 && j == 3) || f == 1) {
          
-         if(f==0){
+         if(f == 0){
             fprintf(xbee,"Back Start\r\n");
             back();
             for(x = 0; x < 4; x++)
