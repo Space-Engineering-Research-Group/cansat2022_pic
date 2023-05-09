@@ -112,17 +112,12 @@ float get_height(unsigned char *buffer){
    if(buffer[22] != '0'){
          if(buffer[55] == ','){
             //altitude : 0 - 9.0 m
-            h = {
-               (int)buffer[52],
-               0
-            };
+            ht[0] = (int)buffer[52];
             flug = 1;
          }else{
             //altitude : 10.0 - 99.0 m
-            h = {
-               (int)buffer[52],
-               (int)buffer[53]
-            };
+            ht[0] = (int)buffer[52];
+            ht[1] = (int)buffer[53];
             flug = 0;
          }
    }
