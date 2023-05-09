@@ -13,10 +13,10 @@ float get_latitude(unsigned char *buffer)
    float lat;
    
    int n[] = {
-      (int)x[24],
-      (int)x[25],
-      (int)x[26],
-      (int)x[27]
+      (int)buffer[24],
+      (int)buffer[25],
+      (int)buffer[26],
+      (int)buffer[27]
    };
 
 
@@ -63,10 +63,10 @@ float get_longitude(unsigned char *buffer)
    float lon;
 
    int e[] = {
-      (int)x[37],
-      (int)x[38],
-      (int)x[39],
-      (int)x[40]
+      (int)buffer[37],
+      (int)buffer[38],
+      (int)buffer[39],
+      (int)buffer[40]
    };
 
    for(int i = 0; i < 4; i++){
@@ -109,8 +109,8 @@ float get_height(unsigned char *buffer){
    int flug; 
    float hgt;
 
-   if(x[22] != '0'){
-         if(x[55] == ','){
+   if(buffer[22] != '0'){
+         if(buffer[55] == ','){
             //altitude : 0 - 9.0 m
             h = {
                (int)buffer[52],
