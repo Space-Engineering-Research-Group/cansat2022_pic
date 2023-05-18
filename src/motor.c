@@ -1,69 +1,76 @@
-typedef struct {
-   int right[2];
-   int left[2];
-} Motor_Pin;
+#include <stdio.h>
 
-void left_turn(Motor_Pin *motor){
+struct Motor_Pin {
+   int left;
+   int right;
+};
+
+struct Pins {
+   struct Motor_Pin forword;
+   struct Motor_Pin back;
+};
+
+void left_turn(struct Pins *pins){
    delay_ms(1);
    
-   output_high(motor->right[0]);
-   output_low(motor->right[1]);
+   output_high(pins->forword.right);
+   output_low(pins->back.right);
    
-   output_low(motor->left[0]);
-   output_low(motor->left[1]);
+   output_low(pins->forword.left);
+   output_low(pins->back.left);
 }
 
-void right_turn(Motor_Pin *motor){
+void right_turn(struct Pins *pins){
    delay_ms(1);
    
-   output_low(motor->right[0]);
-   output_low(motor->right[1]);
+   output_low(pins->forword.right);
+   output_low(pins->back.right);
    
-   output_high(motor->left[0]);
-   output_low(motor->left[1]);
+   output_high(pins->forword.left);
+   output_low(pins->back.left);
 }
 
-void stop(Motor_Pin *motor){
-   output_low(motor->right[0]);
-   output_low(motor->right[1]);
+void stop(struct Pins *pins){
+   output_low(pins->forword.right);
+   output_low(pins->back.right);
    
-   output_low(motor->left[0]);
-   output_low(motor->left[1]);
+   output_low(pins->forword.left);
+   output_low(pins->back.left);
 }
 
-void forward(Motor_Pin *motor){
+void forword(struct Pins *pins){
    delay_ms(1);
-   output_low(motor->right[0]);
-   output_high(motor->right[1]);
+   output_low(pins->forword.right);
+   output_high(pins->back.right);
    
-   output_low(motor->left[0]);
-   output_high(motor->left[1]);
+   output_low(pins->forword.left);
+   output_high(pins->back.left);
 }
 
-void back(Motor_Pin *motor){
+void back(struct Pins *pins){
    delay_ms(1);
-   output_high(motor->right[0]);
-   output_low(motor->right[1]);
+   output_high(pins->forword.right);
+   output_low(pins->back.right);
    
-   output_high(motor->left[0]);
-   output_low(motor->left[1]);
+   output_high(pins->forword.left);
+   output_low(pins->back.left);
 }
 
-void right_rotate(Motor_Pin *motor){
+void right_rotate(struct Pins *pins){
    delay_ms(1);
-   output_low(motor->right[0]);
-   output_high(motor->right[1]);
+   output_low(pins->forword.right);
+   output_high(pins->back.right);
    
-   output_high(motor->left[0]);
-   output_low(motor->left[1]);
+   output_high(pins->forword.left);
+   output_low(pins->back.left);
 }
 
-void left_rotate(Motor_Pin *motor){
+void left_rotate(struct Pins *pins){
    delay_ms(1);
-   output_high(motor->right[0]);
-   output_low(motor->right[1]);
+   output_high(pins->forword.right);
+   output_low(pins->back.right);
    
-   output_low(motor->left[0]);
-   output_high(motor->left[1]);
+   output_low(pins->forword.left);
+   output_high(pins->back.left);
 }
 
