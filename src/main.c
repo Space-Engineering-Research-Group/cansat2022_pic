@@ -1,4 +1,4 @@
-// #include <18f2550.h> //pic library
+#include <18f2550.h> //pic library
 // #include <18f2455.h>
 
 #fuses HS,points->nowDT,NOPROTECT,PUT,BROWNOUT,NOLVP

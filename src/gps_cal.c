@@ -9,6 +9,7 @@ typedef struct {
    long int right;
 } Gps_Angles;
 
+/// @brief get the coordinate from the GPS
 struct Coordinates {
    float latitude;
    float longitude;
@@ -21,6 +22,12 @@ struct Points {
    struct Coordinates goal;
 };
 
+/// @brief update coordinates and get GPS count
+/// @param points coordinates
+/// @param buffer buffer
+/// @param gps 調査中
+/// @param gps_count GPS count 
+/// @return GPS count
 int get_counts(struct Points *points, char *buffer, char gps, int gps_count){
    gets(buffer, gps);
    points->now.latitude = get_latitude(buffer);
@@ -29,12 +36,18 @@ int get_counts(struct Points *points, char *buffer, char gps, int gps_count){
    return gps_count;
 }
 
-
+/// @brief if back check is true, run back
+/// @param points coordinates
+/// @param pins motor pin
+/// @param check default false
+/// @param count while count
 void back_check(struct Points *points, struct Pins *pins, bool check, int count){
    if(
-      (fabs(points->start.latitude - points->now.latitude) < 5
-    && fabs(points->start.longitude - points->now.longitude) < 5 
-    && count == 3) 
+      (
+         fabs(points->start.latitude - points->now.latitude) < 5
+      && fabs(points->start.longitude - points->now.longitude) < 5 
+      && count == 3
+      ) 
     || check == true
    ){
       if(check == false){
@@ -57,6 +70,14 @@ void back_check(struct Points *points, struct Pins *pins, bool check, int count)
    return;
 }
 
+/// @brief turn check
+/// @param time motor time
+/// @param angles GPS angle
+/// @param pins motor pin
+/// @param angle calcurated angle
+/// @param cross_product corss product
+/// @param direction value of direction
+/// @param count value of count
 void turn_check(
    Motor_Time *time,
    Gps_Angles *angles,
@@ -102,6 +123,7 @@ void turn_check(
    return;
 }
 
+/// @brief calcurate distanse
 typedef struct {
    float now_x;
    float now_y;
@@ -111,6 +133,9 @@ typedef struct {
    float dist_y;
 } calculate_dist;
 
+/// @brief calcurate distanse
+/// @param points coordinates
+/// @return distanse
 float calc_dist(struct Points *points){
    // init values
    calculate_dist tmp;
@@ -126,11 +151,16 @@ float calc_dist(struct Points *points){
    return dist;
 }
 
+/// @brief product inner and cross
 typedef struct {
    float inner;
    float cross;
 } product;
 
+/// @brief calcurate angle
+/// @param points coordinates
+/// @param prod inner product and cross product
+/// @return angle
 float calc_angle(struct Points *points, product *prod){
    // init values
    calculate_dist tmp;

@@ -6,8 +6,9 @@ float get_latitude(unsigned char*);
 float get_longitude(unsigned char*);
 float get_height(unsigned char*);
 
-// subroutine (get latitude data)
-
+/// @brief get coordinate of latitude
+/// @param buffer buffer
+/// @return latitude
 float get_latitude(unsigned char *buffer){
    int north_t[4];
    float lat;
@@ -49,13 +50,12 @@ float get_latitude(unsigned char *buffer){
             
 
    lat = 1000 * (float)north_t[0] + 100 * (float)north_t[1] + 10 * (float)north_t[2] + (float)north_t[3];
-   //fprintf(xbee,"lat(gps_data) = %f\r\n",lat);
    return lat;
 }
 
-
-// subroutine (get longuitude data)
-
+/// @brief get coordinate of longitude
+/// @param buffer buffer
+/// @return longitude
 float get_longitude(unsigned char *buffer){
    int east_t[4];
    float lon;
@@ -98,8 +98,9 @@ float get_longitude(unsigned char *buffer){
    return lon;
 }
 
-// subroutine (get height data)
-
+/// @brief get coordinate of height
+/// @param buffer buffer
+/// @return height
 float get_height(unsigned char *buffer){
    int height[2];
    int height_t[2];
@@ -110,7 +111,7 @@ float get_height(unsigned char *buffer){
          if(buffer[55] == ','){
             //altitude : 0 - 9.0 m
             height_t[0] = (int)buffer[52];
-            flug = 1;
+            flug = true;
          }else{
             //altitude : 10.0 - 99.0 m
             height_t[0] = (int)buffer[52];
