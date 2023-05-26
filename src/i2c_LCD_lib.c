@@ -73,7 +73,7 @@ void lcd_cmd(unsigned char cmd)
    if((cmd == 0x01)||(cmd == 0x02))
       delay_ms(2);            // 2msec delay
    else
-      delay_us(30);           // 30ƒÊsec delay   
+      delay_us(30);           // 30ï¿½ï¿½sec delay   
 }
 
 // 1 byte (1 character) data transfer
@@ -86,7 +86,8 @@ void lcd_data(unsigned char data)
    i2c_stop();                //i2c stop
 }
 
-// string (characters) transfer
+/// @brief èª¿æŸ»ä¸­
+/// @param ptr 
 void lcd_str(char* ptr)
 {
    while(*ptr != 0)            //
@@ -97,6 +98,9 @@ void lcd_str(char* ptr)
 // "num" = icon choice, "onoff" = icon ON/OFF
 // ex. lcd_icon(3,1);  -> "Connector" icon ON
 
+/// @brief icon display
+/// @param num icon choice
+/// @param onoff icon ON/OFF
 void lcd_icon(unsigned char num, unsigned char onoff)
 {
    lcd_cmd(0x39);            // Extend mode
@@ -108,7 +112,8 @@ void lcd_icon(unsigned char num, unsigned char onoff)
    lcd_cmd(0x38);            // Normal Mode
 }
 
-// LCD clear
+/// @brief LCD clear
+/// @param  void
 void lcd_clear(void)
 {
  lcd_cmd(0x01);
