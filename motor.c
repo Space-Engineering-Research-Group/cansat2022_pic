@@ -19,7 +19,7 @@ typedef struct
 } AllPins;
 
 
-void left_turn(AllPins *all_pins)
+void motor_left_turn(AllPins *all_pins)
 {
    delay_ms(1);
    
@@ -30,7 +30,7 @@ void left_turn(AllPins *all_pins)
    output_low(all_pins->Right.back);
 }
 
-void right_turn(AllPins *all_pins)
+void motor_right_turn(AllPins *all_pins)
 {
    delay_ms(1);
    output_low(all_pins->Left.forward);
@@ -39,7 +39,7 @@ void right_turn(AllPins *all_pins)
    output_low(all_pins->Right.back);
 }
 
-void stop(AllPins *all_pins)
+void motor_stop(AllPins *all_pins)
 {
    output_low(all_pins->Left.forward);
    output_low(all_pins->Left.back);
@@ -48,7 +48,7 @@ void stop(AllPins *all_pins)
    output_low(all_pins->Right.back);
 }
 
-void forward(AllPins *all_pins)
+void motor_forward(AllPins *all_pins)
 {
    delay_ms(1);
    output_low(all_pins->Left.forward);
@@ -59,7 +59,7 @@ void forward(AllPins *all_pins)
 
 }
 
-void back(AllPins *all_pins)
+void motor_back(AllPins *all_pins)
 {
    delay_ms(1);
    output_high(all_pins->Left.forward);
@@ -69,7 +69,7 @@ void back(AllPins *all_pins)
    output_low(all_pins->Right.back);
 }
 
-void right_rotate(AllPins *all_pins)
+void motor_right_rotate(AllPins *all_pins)
 {
    delay_ms(1);
    output_low(all_pins->Left.forward);
@@ -79,7 +79,7 @@ void right_rotate(AllPins *all_pins)
    output_low(all_pins->Right.back);
 }
 
-void left_rotate(AllPins *all_pins)
+void motor_left_rotate(AllPins *all_pins)
 {
    delay_ms(1);
    output_high(all_pins->Left.forward);
