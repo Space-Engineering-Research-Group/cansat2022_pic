@@ -1,13 +1,11 @@
-void user_delayms(int32 t){
-   int32 t1,t2,num;
-   /*t1 = t / 250;
-   t2 = t % 250;
-   fprintf(xbee,"t1 = %ld t2 = %ld \r\n",t1,t2);*/
-   for(num = 0; num < t1; num++){
-      delay_ms(250);
-   }
-   delay_ms((int8)t2);
-   return;
+typedef struct
+{
+   double longitude;
+   double latitude;
+} Coordinate;
+
+double distance(double x, double y){
+   return sqrt(x*x + y*y);
 }
 
 void gps_get(void){
@@ -21,8 +19,8 @@ void gps_get(void){
 }
 
 
-void back_check(void){
-      if((fabs(zero[0] - e_posi)<5 && fabs(zero[1]-n_posi)<5 && j==3)||f==1) {
+void back_check(Coordinate *now, Coordinate *start){
+      if((distance(now->latitude, now->longitude) - distance(start->latitude, start->longitude)) < 5 && j==3)||f==1) {
          
          if(f==0){
             fprintf(xbee,"Back Start\r\n");
