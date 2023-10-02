@@ -1,23 +1,23 @@
-// Subroutine for get data receive
-#include<string.h>
-#include "ExtractValue.c"
+#include <get_gps.h>
 
-// prototyping
+// GPS通信のセットアップ
+#use rs232(Baud = 9600, XMIT = PIN_C6, RCV = PIN_C7, stream = gps, ERRORS)
 
-/// @brief 緯度を取得する関数
-/// @param GPSデータ（NMEAフォーマット）
-/// @return 緯度[°]
-float get_latitude(unsigned char*);
-
-/// @brief 経度を取得する関数
-/// @param GPSデータ（NMEAフォーマット）
-/// @return 経度[°]
-float get_longitude(unsigned char*);
-
-/// @brief 標高を取得する関数
-/// @param GPSデータ（NMEAフォーマット）
-/// @return 標高[m]
-float get_altitude(unsigned char*);
+char get_GPS_Data(char* buffer)
+{
+   long timeout_count = 0;
+   while (!kbhit())
+   {
+      gets(buffer);
+      delay_us(10);
+      timeout_count++
+      if(timeout_count > 5000000)
+      {
+         return NULL;
+      }
+   }   
+   return buffer;
+}
 
 // get longitude from GGA message
 double get_longitude(unsigned char *GPS_Data)
@@ -34,6 +34,9 @@ double get_longitude(unsigned char *GPS_Data)
 
    // 次の区切りまで文字数を数える
    int LenValue = lencount(FindValue, ',');
+   if(LenValue == 0){ 
+      return NULL;
+   }
 
    // 標高の値をchar -> doubleに変換してValueに格納する
    double Value = getvalue(FindValue, LenValue);
@@ -56,6 +59,9 @@ float get_latitude(unsigned char *GPS_Data)
 
    // 次の区切りまで文字数を数える
    int LenValue = lencount(FindValue, ',');
+   if(LenValue == 0){ 
+      return NULL;
+   }
 
    // 標高の値をchar -> doubleに変換してValueに格納する
    double Value = getvalue(FindValue, LenValue);
@@ -78,6 +84,9 @@ float get_altitude(unsigned char *GPS_Data)
 
    // 次の区切りまで文字数を数える
    int LenValue = lencount(FindValue, ',');
+   if(LenValue == 0){ 
+      return NULL;
+   }
 
    // 標高の値をchar -> doubleに変換してValueに格納する
    double Value = getvalue(FindValue, LenValue);
