@@ -12,11 +12,11 @@ double distance(double x, double y){
 }
 
 double cross_product(Vector *a, Vector *b) {
-    return a->x_component * b->y_component + a->y_component * b->x_component;
+    return a->x * b->y + a->y * b->x;
 }
 
 double inner_product(Vector *a, Vector *b) {
-    return a->x_component * b->x_component + a->y_component * b->y_component;
+    return a->x * b->y - a->y * b->x;
 }
 
 double calculate_angle(double inner_product) {
