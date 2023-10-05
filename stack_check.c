@@ -25,9 +25,6 @@ void back_check(Coordinate *current, Coordinate *initial, AllPins motorpin){
 
 void turn_check(Coordinate *current_coordinate, Coordinate *initial_coordinate, Coordinate *goal_coordinate, AllPins *motor_pin) {
     Vector *current_vector, *initial_vector, *goal_vector;
-    // TODO: coordinate -> vectortor
-    // calculate inner product
-    // calculate cross product
 
     current_vector->x = current_coordinate->latitude - initial_coordinate->latitude;
     current_vector->y = current_coordinate->longitude - initial_coordinate->longitude;
@@ -37,8 +34,6 @@ void turn_check(Coordinate *current_coordinate, Coordinate *initial_coordinate, 
 
     double to_goal_inner = inner_product(current_vector, goal_vector);
     double to_goal_cross = cross_product(current_vector, goal_vector);
-
-    // TODO: reference from gps_cal.c
 
     double to_goal_angle = calculate_angle(to_goal_inner);
 
@@ -56,6 +51,5 @@ void turn_check(Coordinate *current_coordinate, Coordinate *initial_coordinate, 
         delay_ms(turn_time);
         motor_forward(motor_pin);
     }
-
     return;
 }
