@@ -26,3 +26,8 @@ double get_longitude(unsigned char*);
 /// @param GPSデータ（NMEAフォーマット）
 /// @return 標高[m]
 double get_altitude(unsigned char*);
+
+/// @brief obtain angle of advance
+/// @param GPS_data NMEA format 
+/// @return angle[°]
+double get_angle(unsigned char*);

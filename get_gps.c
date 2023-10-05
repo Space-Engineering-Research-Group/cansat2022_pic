@@ -49,7 +49,8 @@ float get_latitude(unsigned char *GPS_Data)
 {
    // GGAメッセージ以外取得しないようにする
    char *GGA_Message = strstr(GPS_Data, "$GPGGA");
-   if(GGA_Message == NULL){ 
+   if(GGA_Message == NULL)
+   { 
       return NULL;
    }
 
@@ -59,7 +60,8 @@ float get_latitude(unsigned char *GPS_Data)
 
    // 次の区切りまで文字数を数える
    int LenValue = lencount(FindValue, ',');
-   if(LenValue == 0){ 
+   if(LenValue == 0)
+   { 
       return NULL;
    }
 
@@ -74,7 +76,8 @@ float get_altitude(unsigned char *GPS_Data)
 {
    // GGAメッセージ以外取得しないようにする
    char *GGA_Message = strstr(GPS_Data, "$GPGGA");
-   if(GGA_Message == NULL){ 
+   if(GGA_Message == NULL)
+   { 
       return NULL;
    }
 
@@ -84,7 +87,8 @@ float get_altitude(unsigned char *GPS_Data)
 
    // 次の区切りまで文字数を数える
    int LenValue = lencount(FindValue, ',');
-   if(LenValue == 0){ 
+   if(LenValue == 0)
+   { 
       return NULL;
    }
 
@@ -92,4 +96,21 @@ float get_altitude(unsigned char *GPS_Data)
    double Value = getvalue(FindValue, LenValue);
 
    return Value;
+}
+
+double get_angle(unsigned char* GPS_data)
+{
+   char *GGA_Message = strstr(GPS_data, "$GPVTG");
+   if(GGA_Message == NULL)
+   {
+      return NULL;
+   }
+
+   char* FindValue = find(GGA_Message, ',', 1);
+
+   int LenValue = lencount(FindValue, ',');
+   if(LenValue == 0)
+   {
+      return NULL;
+   }
 }
