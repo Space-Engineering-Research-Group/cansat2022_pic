@@ -1,3 +1,5 @@
+#ifndef MOTOR_H
+#define MOTOR_H
 #device PIC18F2520
 
 typedef struct
@@ -39,3 +41,5 @@ void motor_right_rotate(AllPins);
 /// @brief left rotate
 /// @param motor_pin motor pins 
 void motor_left_rotate(AllPins);
+
+#endif

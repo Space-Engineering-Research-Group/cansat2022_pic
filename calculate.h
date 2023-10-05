@@ -1,3 +1,6 @@
+#ifndef CALCULATE_H
+#define CALCULATE_H
+
 typedef struct
 {
     double x;
@@ -26,3 +29,5 @@ double inner_product(Vector, Vector);
 /// @param inner_product value of inner product
 /// @return angle
 double calculate_angle(double);
+
+#endif

@@ -1,3 +1,6 @@
+#ifndef STACKCHECK_H
+#define STACKCHECK_H
+
 typedef sturct
 {
     double longitude;
@@ -16,3 +19,5 @@ void back_check(Coordinate, Coordinate, AllPins);
 /// @param goal_coordinate goal coordinate
 /// @param motor_pin motor pins
 void turn_check(Coordinate, Coordinate, Coordinate, AllPins);
+
+#endif
