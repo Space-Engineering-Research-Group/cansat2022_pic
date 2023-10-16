@@ -131,7 +131,7 @@ void main() {
       break;
     }
 
-    back_check(&Now, &Start, motor_pins);
+    back_check(&Now, &Start, &motor_pins);
     turn_check(&Now, &Start, &Goal, &motor_pins);
 
   }

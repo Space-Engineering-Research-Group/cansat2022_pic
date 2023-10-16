@@ -10,7 +10,7 @@ typedef struct
     double latitude;
 } Coordinate;
 
-void back_check(Coordinate *current, Coordinate *initial, AllPins motorpin){
+void back_check(Coordinate *current, Coordinate *initial, AllPins *motorpin){
     double distance_advanced = distance(current->latitude, current->longitude) - distance(initial->latitude, initial->longitude);
     if(fabs(distance_advanced) < 0.0005){
         fprintf(xbee, "Back initial\r\n");
