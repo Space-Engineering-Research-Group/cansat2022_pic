@@ -103,12 +103,14 @@ float get_altitude(unsigned char *GPS_Data)
 
 double get_angle(unsigned char* GPS_data)
 {
+   // VGTメッセージ以外取得しないようにする
    char *GGA_Message = strstr(GPS_data, "$GPVTG");
    if(GGA_Message == NULL)
    {
       return NULL;
    }
 
+   // 1番目のデータを取得する
    char* FindValue = find(GGA_Message, ',', 1);
 
    int LenValue = lencount(FindValue, ',');
