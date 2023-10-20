@@ -7,9 +7,9 @@
 #use rs232(Baud = 9600, XMIT = PIN_C6, RCV = PIN_C7, stream = gps, ERRORS)
 
 // global value
-char buffer[100];
+unsigned char buffer[100];
 
-char* get_GPS_Data(void)
+unsigned char* get_GPS_Data(void)
 {
    long timeout_count = 0;
    while (!kbhit()){

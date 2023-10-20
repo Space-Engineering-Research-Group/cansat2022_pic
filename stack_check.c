@@ -18,7 +18,7 @@ void back_check(struct Coordinate *current, struct Coordinate *initial, struct A
 }
 
 void turn_check(struct Coordinate *current_coordinate, struct Coordinate *initial_coordinate, struct Coordinate *goal_coordinate, struct AllPins *motor_pin) {
-    Vector *current_vector, *initial_vector, *goal_vector;
+    struct Vector *current_vector, *initial_vector, *goal_vector;
 
     current_vector->x = current_coordinate->latitude - initial_coordinate->latitude;
     current_vector->y = current_coordinate->longitude - initial_coordinate->longitude;
