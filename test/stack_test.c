@@ -18,7 +18,6 @@
 
 // xbee setup
 #use rs232(Baud=9600, XMIT=PIN_B2, RCV=PIN_B3, stream=xbee)
-#use i2c(MASTER, SDA=PIN_B0, SCL=PIN_B1, SLOW)
 #byte UCFG = 0xF6F
 #bit UTRDIS = UCFG.3
 
@@ -34,7 +33,7 @@ void main(void)
     set_tirs_c(0x80);
 
     // pins setup
-    AllPins motor_pin;
+    struct AllPins motor_pin;
     motor_pin.Left.forward  = PIN_C0;
     motor_pin.Left.back     = PIN_C1;
     motor_pin.Right.forward = PIN_A0;
@@ -44,6 +43,31 @@ void main(void)
     motor_stop(&motor_pin);
     
     // TODO: setup code
-    
+    struct Coordinate now, start, goal;
+    struct Vector;
+    unsigned char buffer[100];
+
+    goal.latitude   = 4566.0;
+    goal.longitude  = 6068.0;
+
     // TODO: test code
+    do
+    {
+        buffer          = get_GPS_Data();
+        start.latitude  = get_latitude(buffer);
+        start.longitude = get_longitude(buffer);
+    } while (start.latitude == NULL || start.longitude == NULL);
+    
+
+    while(true){
+        buffer          = get_GPS_Data();
+        now.latitude    = get_latitude(buffer);
+        now.longitude   = get_longitude(buffer);
+
+        motor_forward(&motor_pin);
+        delay_ms(1000);
+
+        back_check(&now, &start, &motor_pin);
+        turn_check(&now, &start, &goal, &motor_pin);
+    }
 }
