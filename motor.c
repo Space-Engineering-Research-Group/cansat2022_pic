@@ -1,19 +1,6 @@
 #include<motor.h>
 
-typedef struct
-{
-   int forward;
-   int back;
-} MotorPin;
-
-typedef struct
-{
-   MotorPin Right;
-   MotorPin Left;
-} AllPins;
-
-
-void motor_left_turn(AllPins *all_pins)
+void motor_left_turn(struct AllPins *all_pins)
 {
    output_high(all_pins->Left.forward);
    output_low(all_pins->Left.back);
@@ -22,7 +9,7 @@ void motor_left_turn(AllPins *all_pins)
    output_low(all_pins->Right.back);
 }
 
-void motor_right_turn(AllPins *all_pins)
+void motor_right_turn(struct AllPins *all_pins)
 {
    output_low(all_pins->Left.forward);
    output_low(all_pins->Left.back);
@@ -31,7 +18,7 @@ void motor_right_turn(AllPins *all_pins)
    output_low(all_pins->Right.back);
 }
 
-void motor_stop(AllPins *all_pins)
+void motor_stop(struct AllPins *all_pins)
 {
    output_low(all_pins->Left.forward);
    output_low(all_pins->Left.back);
@@ -40,7 +27,7 @@ void motor_stop(AllPins *all_pins)
    output_low(all_pins->Right.back);
 }
 
-void motor_forward(AllPins *all_pins)
+void motor_forward(struct AllPins *all_pins)
 {
    output_low(all_pins->Left.forward);
    output_high(all_pins->Left.back);
@@ -50,7 +37,7 @@ void motor_forward(AllPins *all_pins)
 
 }
 
-void motor_back(AllPins *all_pins)
+void motor_back(struct AllPins *all_pins)
 {
    output_high(all_pins->Left.forward);
    output_low(all_pins->Left.back);
@@ -59,7 +46,7 @@ void motor_back(AllPins *all_pins)
    output_low(all_pins->Right.back);
 }
 
-void motor_right_rotate(AllPins *all_pins)
+void motor_right_rotate(struct AllPins *all_pins)
 {
    output_low(all_pins->Left.forward);
    output_high(all_pins->Left.back);
@@ -68,7 +55,7 @@ void motor_right_rotate(AllPins *all_pins)
    output_low(all_pins->Right.back);
 }
 
-void motor_left_rotate(AllPins *all_pins)
+void motor_left_rotate(struct AllPins *all_pins)
 {
    output_high(all_pins->Left.forward);
    output_low(all_pins->Left.back);

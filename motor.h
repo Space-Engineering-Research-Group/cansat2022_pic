@@ -1,45 +1,41 @@
-#ifndef MOTOR_H
-#define MOTOR_H
-#device PIC18F2520
-
-typedef struct
+struct MotorPin
 {
-   int forward;
-   int back;
-} MotorPin;
+    int forward;
+    int back;
+};
 
-typedef struct
+
+struct AllPins
 {
-   MotorPin Right;
-   MotorPin Left;
-} AllPins;
+    struct MotorPin Right;
+    struct MotorPin Left;
+};
+
 
 /// @brief turn right
 /// @param motor_pin motor pins 
-void motor_right_turn(AllPins);
+void motor_right_turn(struct AllPins);
 
 /// @brief turn left
 /// @param motor_pin motor pins 
-void motor_left_turn(AllPins);
+void motor_left_turn(struct AllPins);
 
 /// @brief stop
 /// @param motor_pin motor pins 
-void motor_stop(AllPins);
+void motor_stop(struct AllPins);
 
 /// @brief forward
 /// @param motor_pin motor pins 
-void motor_forward(AllPins);
+void motor_forward(struct AllPins);
 
 /// @brief back
 /// @param motor_pin motor pins 
-void motor_back(AllPins);
+void motor_back(struct AllPins);
 
 /// @brief right rotate
 /// @param motor_pin motor pins 
-void motor_right_rotate(AllPins);
+void motor_right_rotate(struct AllPins);
 
 /// @brief left rotate
 /// @param motor_pin motor pins 
-void motor_left_rotate(AllPins);
-
-#endif
+void motor_left_rotate(struct AllPins);
