@@ -4,13 +4,7 @@
 #include <stack_check.h>
 #include <get_gps.h>
 
-typedef struct
-{
-    double longitude;
-    double latitude;
-} Coordinate;
-
-void back_check(Coordinate *current, Coordinate *initial, AllPins *motorpin){
+void back_check(struct Coordinate *current, struct Coordinate *initial, struct AllPins *motorpin){
     double distance_advanced = distance(current->latitude, current->longitude) - distance(initial->latitude, initial->longitude);
     if(fabs(distance_advanced) < 0.0005){
         fprintf(xbee, "Back initial\r\n");
@@ -23,7 +17,7 @@ void back_check(Coordinate *current, Coordinate *initial, AllPins *motorpin){
     delay_ms(1000);
 }
 
-void turn_check(Coordinate *current_coordinate, Coordinate *initial_coordinate, Coordinate *goal_coordinate, AllPins *motor_pin) {
+void turn_check(struct Coordinate *current_coordinate, struct Coordinate *initial_coordinate, struct Coordinate *goal_coordinate, struct AllPins *motor_pin) {
     Vector *current_vector, *initial_vector, *goal_vector;
 
     current_vector->x = current_coordinate->latitude - initial_coordinate->latitude;

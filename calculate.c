@@ -1,21 +1,15 @@
 #include <calculate.h>
 #include <math.h>
 
-typedef struct
-{
-    double x;
-    double y;
-} Vector;
-
 double distance(double x, double y){
     return sqrt(x*x + y*y);
 }
 
-double cross_product(Vector *a, Vector *b) {
+double cross_product(struct Vector *a, struct Vector *b) {
     return a->x * b->y + a->y * b->x;
 }
 
-double inner_product(Vector *a, Vector *b) {
+double inner_product(struct Vector *a, struct Vector *b) {
     return a->x * b->y - a->y * b->x;
 }
 

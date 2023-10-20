@@ -1,16 +1,6 @@
 #ifndef GETGPS_H
 #define GETGPS_H
 
-// Subroutine for get data receive
-#include <string.h>
-#include <extract_value.h>
-
-// device set up
-#device PIC18F2520
-
-// global value
-extern char buffer[100];
-
 // prototyping
 
 /// @brief GPSデータを取得する関数
