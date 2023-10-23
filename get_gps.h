@@ -1,6 +1,3 @@
-#ifndef GETGPS_H
-#define GETGPS_H
-
 // prototyping
 
 /// @brief GPSデータを取得する関数
@@ -27,5 +24,3 @@ double get_altitude(unsigned char*);
 /// @param GPS_data NMEA format 
 /// @return angle[°]
 double get_angle(unsigned char*);
-
-#endif

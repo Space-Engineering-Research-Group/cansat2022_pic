@@ -1,8 +1,6 @@
+#include <18f252.h>
+#include <stdlib.h>
 #include "../get_gps.c"
-#include <18f2520.h>
-
-// GPS set up
-#use rs232(Baud = 9600, XMIT = PIN_C6, RCV = PIN_C7, stream = gps, ERRORS)
 
 // xbee set up
 #use rs232(Baud = 9600, XMIT = PIN_B2, RCV = PIN_B3, stream = xbee)
@@ -26,7 +24,7 @@ void main(void) {
     set_tris_c(0x80);
 
     fprintf(xbee, "Power ON\r\n");
-    fpirntf(xbee, "wait GPS...\r\n");
+    fprintf(xbee, "wait GPS...\r\n");
 
     for(int i = 0; i < 5; i++){
         buffer = get_GPS_Data();

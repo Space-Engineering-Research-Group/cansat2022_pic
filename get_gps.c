@@ -1,15 +1,15 @@
 #include <get_gps.h>
 #include <string.h>
-#include <extract_value.h>
+#include "extract_value.c"
 
 // GPS通信のセットアップ
 #use delay(CLOCK=20000000)
 #use rs232(Baud = 9600, XMIT = PIN_C6, RCV = PIN_C7, stream = gps, ERRORS)
 
 // global value
-unsigned char buffer[100];
+char* buffer;
 
-unsigned char* get_GPS_Data(void)
+char* get_GPS_Data()
 {
    long timeout_count = 0;
    while (!kbhit()){
@@ -24,19 +24,19 @@ unsigned char* get_GPS_Data(void)
 }
 
 // get longitude from GGA message
-double get_longitude(unsigned char *GPS_Data)
+double get_longitude(char* GPS_Data)
 {
    // GGAメッセージ以外取得しないようにする
-   char GGA_Message[100];
-   char GGA[] = {"$GPGGA"};
+   char* GGA_Message;
+   char* GGA = "$GPGGA";
    GGA_Message = strstr(GPS_Data, GGA);
    if(GGA_Message == NULL){ 
       return NULL;
    }
 
    // 区切りを「,」でしているため
-   // 4個目(経度のデータが格納されている)の区切り文字を検索する
-   char FindValue[12]; 
+   // 2個目(経度のデータが格納されている)の区切り文字を検索する
+   char* FindValue; 
    FindValue = find(GGA_Message, ',', 2);
 
    // 次の区切りまで文字数を数える
@@ -46,7 +46,7 @@ double get_longitude(unsigned char *GPS_Data)
       return NULL;
    }
 
-   // 標高の値をchar -> doubleに変換してValueに格納する
+   // 緯度の値をchar -> doubleに変換してValueに格納する
    double Value;
    Value = getvalue(FindValue, LenValue);
 
@@ -57,25 +57,28 @@ double get_longitude(unsigned char *GPS_Data)
 float get_latitude(unsigned char *GPS_Data)
 {
    // GGAメッセージ以外取得しないようにする
-   char* GGA_Message = strstr(GPS_Data, "$GPGGA");
-   if(GGA_Message == NULL)
-   { 
+   char* GGA_Message;
+   char* GGA = "$GPGGA";
+   GGA_Message = strstr(GPS_Data, GGA);
+   if(GGA_Message == NULL){ 
       return NULL;
    }
 
    // 区切りを「,」でしているため
    // 4個目(経度のデータが格納されている)の区切り文字を検索する
-   char* FindValue = find(GGA_Message, ',', 4);
+   char* FindValue; 
+   FindValue = find(GGA_Message, ',', 4);
 
    // 次の区切りまで文字数を数える
-   int LenValue = lencount(FindValue, ',');
-   if(LenValue == 0)
-   { 
+   int LenValue;
+   LenValue = lencount(FindValue, ',');
+   if(LenValue == 0){ 
       return NULL;
    }
 
-   // 標高の値をchar -> doubleに変換してValueに格納する
-   double Value = getvalue(FindValue, LenValue);
+   // 緯度の値をchar -> doubleに変換してValueに格納する
+   double Value;
+   Value = getvalue(FindValue, LenValue);
 
    return Value;
 }
@@ -84,25 +87,28 @@ float get_latitude(unsigned char *GPS_Data)
 float get_altitude(unsigned char *GPS_Data)
 {
    // GGAメッセージ以外取得しないようにする
-   char *GGA_Message = strstr(GPS_Data, "$GPGGA");
-   if(GGA_Message == NULL)
-   { 
+   char* GGA_Message;
+   char* GGA = "$GPGGA";
+   GGA_Message = strstr(GPS_Data, GGA);
+   if(GGA_Message == NULL){ 
       return NULL;
    }
 
    // 区切りを「,」でしているため
    // 11個目(標高のデータが格納されている)の区切り文字を検索する
-   char* FindValue = find(GGA_Message, ',', 11);
+   char* FindValue; 
+   FindValue = find(GGA_Message, ',', 11);
 
    // 次の区切りまで文字数を数える
-   int LenValue = lencount(FindValue, ',');
-   if(LenValue == 0)
-   { 
+   int LenValue;
+   LenValue = lencount(FindValue, ',');
+   if(LenValue == 0){ 
       return NULL;
    }
 
-   // 標高の値をchar -> doubleに変換してValueに格納する
-   double Value = getvalue(FindValue, LenValue);
+   // 緯度の値をchar -> doubleに変換してValueに格納する
+   double Value;
+   Value = getvalue(FindValue, LenValue);
 
    return Value;
 }
@@ -110,18 +116,28 @@ float get_altitude(unsigned char *GPS_Data)
 double get_angle(unsigned char* GPS_data)
 {
    // VGTメッセージ以外取得しないようにする
-   char *GGA_Message = strstr(GPS_data, "$GPVTG");
-   if(GGA_Message == NULL)
+   char *VTG_Message;
+   char *VTG = "$GPVTG";
+   VTG_Message = strstr(GPS_data, VTG);
+   if(VTG_Message == NULL)
    {
       return NULL;
    }
 
    // 1番目のデータを取得する
-   char* FindValue = find(GGA_Message, ',', 1);
+   char* FindValue;
+   FindValue = find(VTG_Message, ',', 1);
 
-   int LenValue = lencount(FindValue, ',');
+   int LenValue;
+   LenValue = lencount(FindValue, ',');
    if(LenValue == 0)
    {
       return NULL;
    }
+
+   // 角度の値をchar -> doubleに変換してValueに格納する
+   double Value;
+   Value = getvalue(FindValue, LenValue);
+   
+   return Value;
 }
