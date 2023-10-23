@@ -1,10 +1,7 @@
-#include <18f32520.h>
+#include <18f252.h>
 #fuses HS,NOWDT,NOPROTECT,PUT,BROWNOUT,NOLVP
 
-#include <stack_check.c>
-#include <get_gps.c>
-#include <motor.c>
-#include <calculate.c>
+#include "../stack_check.c"
 
 #use fast_io(A)
 #use fast_io(B)
@@ -13,13 +10,7 @@
 // RS232 setup
 #use delay(CLOCK=20000000)
 
-// GPS setup
-#use rs232(Baud=9600, XMIT=PIN_C6, RCV=PIN_C7, stream=gps, ERRORS)sbe
 
-// xbee setup
-#use rs232(Baud=9600, XMIT=PIN_B2, RCV=PIN_B3, stream=xbee)
-#byte UCFG = 0xF6F
-#bit UTRDIS = UCFG.3
 
 void main(void) 
 {
@@ -28,9 +19,9 @@ void main(void)
     UTRDIS = 1;    
 
     // initial setup
-    set_tirs_a(0x00);
-    set_tirs_b(0x18);
-    set_tirs_c(0x80);
+    set_tris_a(0x00);
+    set_tris_b(0x18);
+    set_tris_c(0x80);
 
     // pins setup
     struct AllPins motor_pin;
@@ -45,7 +36,7 @@ void main(void)
     // TODO: setup code
     struct Coordinate now, start, goal;
     struct Vector;
-    unsigned char buffer[100];
+    char* buffer;
 
     goal.latitude   = 4566.0;
     goal.longitude  = 6068.0;

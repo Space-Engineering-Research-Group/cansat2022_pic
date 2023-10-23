@@ -1,3 +1,6 @@
+#ifndef _EXTRACT_VALUE_H_
+#define _EXTRACT_VALUE_H_
+
 #include <stdlib.h>
 #include <string.h>
 
@@ -21,3 +24,5 @@ int lencount(char* text, char target);
 /// @param len 抽出したい文字列の長さ
 /// @return 抽出した数値
 double getvalue(char* text, int len);
+
+#endif

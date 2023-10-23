@@ -1,5 +1,5 @@
-#ifndef CALCULATE_H
-#define CALCULATE_H
+#ifndef _CALCULATE_H_
+#define _CALCULATE_H_
 
 struct Vector
 {

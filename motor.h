@@ -1,9 +1,12 @@
+#ifndef _MOTOR_H_
+#define _MOTOR_H_
+// prototyping
+
 struct MotorPin
 {
     int forward;
     int back;
 };
-
 
 struct AllPins
 {
@@ -39,3 +42,5 @@ void motor_right_rotate(struct AllPins);
 /// @brief left rotate
 /// @param motor_pin motor pins 
 void motor_left_rotate(struct AllPins);
+
+#endif

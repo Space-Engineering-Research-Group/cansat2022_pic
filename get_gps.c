@@ -9,7 +9,7 @@
 // global value
 char* buffer;
 
-char* get_GPS_Data()
+char* get_GPS_Data(void)
 {
    long timeout_count = 0;
    while (!kbhit()){

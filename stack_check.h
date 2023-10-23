@@ -1,5 +1,7 @@
-#ifndef STACKCHECK_H
-#define STACKCHECK_H
+#ifndef _STACKCHECK_H_
+#define _STACKCHECK_H_
+
+#include <motor.h>
 
 struct Coordinate
 {

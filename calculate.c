@@ -14,5 +14,5 @@ double inner_product(struct Vector *a, struct Vector *b) {
 }
 
 double calculate_angle(double inner_product) {
-    return acos(inner_product) / acos(-1.0);
+    return acos(inner_product) / PI;
 }
