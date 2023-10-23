@@ -1,5 +1,5 @@
 // Load pic header file
-#include <18f2550.h>
+#include <18f252.h>
 
 // Built-in hardware Configure how to use the
 #fuses HS,NOWDT,NOPROTECT,PUT,BROWNOUT,NOLVP
@@ -8,10 +8,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include <motor.c>
-#include <get_gps.c>
-#include <stack_check.c>
-#include <calculate.c>
+#include "stack_check.c"
 
 #use fast_io(A)
 #use fast_io(B)
@@ -20,28 +17,13 @@
 // RS232C setup
 #use delay(CLOCK=20000000)
 
-// GPS setup
-#use rs232(Baud = 9600, XMIT = PIN_C6, RCV = PIN_C7, stream = gps, ERRORS)
-
-// xbee setup
-#use rs232(Baud = 9600, XMIT = PIN_B2, RCV = PIN_B3, stream = xbee)
-#use i2c(MASTER, SDA=PIN_B0, SCL=PIN_B1, SLOW)
-#byte UCFG = 0xF6F
-#bit UTRDIS = UCFG.3
-
 // config
 int wait_time = 5;
 int gps_receive_count = 0;
 int is_dark = 1;
 
-AllPins motor_pins; 
-motor_pins.Left.forward   = PIN_C0;
-motor_pins.Left.back      = PIN_C1;
-motor_pins.Right.forward  = PIN_A0;
-motor_pins.Right.back     = PIN_C2;
 
 unsigned char GPS_Data[100];
-float pi = acos(-1.0);
 
 // Run Set Up
 void setup_pic(void) {
@@ -56,8 +38,6 @@ void setup_pic(void) {
   // set up values
   int servo_pin = PIN_B5;
   
-  // motor stop
-  motor_stop(&motor_pins);
 
   // Send Power ON to Xbee
   // \r\n is the Windows line feed code
@@ -72,8 +52,8 @@ void setup_pic(void) {
     fprintf(xbee, is_dark ? "Waiting to drop" : "Drop Complete");
     gets(buffer);
     gps_receive_count++;
-    is_dark = input(PIN_B4)
-  } while (gps_receive_count < 20 && is_dark == 0)
+    is_dark = input(PIN_B4);
+  } while (gps_receive_count < 20 && is_dark == 0 && gps_receive_count < 20 * wait_time);
 
   // set up GPS
   fprintf(xbee, "Waiting for GPS\r\n");
@@ -82,11 +62,17 @@ void setup_pic(void) {
 }
 
 void main() {
+  // setup motor pins
+  struct AllPins motor_pins; 
+  motor_pins.Left.forward   = PIN_C0;
+  motor_pins.Left.back      = PIN_C1;
+  motor_pins.Right.forward  = PIN_A0;
+  motor_pins.Right.back     = PIN_C2;
   setup_pic();
 
   // set up values
-  unsigned char GPS_Data[100];
-  Coordinate Start, Goal, Now;
+  unsigned char* GPS_Data;
+  struct Coordinate Start, Goal, Now;
 
   fprintf(xbee, "Setting Up Goal Parameter\r\n");
   do{
@@ -112,7 +98,7 @@ void main() {
   fprintf(xbee, "Setting Up Complete\r\n");
 
   // Start
-  motor_forward(motor_pins);
+  motor_forward(&motor_pins);
   delay_ms(10000);
 
   while (true)
@@ -122,10 +108,12 @@ void main() {
       GPS_Data = get_GPS_Data();
       Now.latitude  = get_latitude(GPS_Data);
       Now.longitude = get_longitude(GPS_Data);
+      gps_receive_count++;
     }while(Now.latitude == NULL);
 
-    double distance_to_goal = fabs(distance(Now.latitude, Now.longitude) - distance(Goal.latitude, Goal.longitude));
-    fprintf(xbee, "%4d. Latitude : %0.4lf, Longitude : %0.4lf, Distance : %lf", Now.latitude, Now.longitude, distance_to_goal);
+    double distance_to_goal;
+    distance_to_goal = fabs(distance(Now.latitude, Now.longitude) - distance(Goal.latitude, Goal.longitude));
+    fprintf(xbee, "%4d. Latitude : %0.4lf, Longitude : %0.4lf, Distance : %lf",gps_receive_count , Now.latitude, Now.longitude, distance_to_goal);
 
     if(distance_to_goal < 0.0005){
       break;

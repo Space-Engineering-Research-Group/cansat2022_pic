@@ -1,8 +1,8 @@
 #include <math.h>
 #include <stack_check.h>
-#include "motor.c"
-#include "get_gps.c"
-#include "calculate.c"
+#include <motor.c>
+#include <get_gps.c>
+#include <calculate.c>
 
 // RS232 setup
 #use delay(CLOCK=20000000)
