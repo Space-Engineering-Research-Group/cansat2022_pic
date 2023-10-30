@@ -26,13 +26,13 @@ void back_check(struct Coordinate *current, struct Coordinate *initial, struct A
 }
 
 void turn_check(struct Coordinate *current_coordinate, struct Coordinate *initial_coordinate, struct Coordinate *goal_coordinate, struct AllPins *motor_pin) {
-    struct Vector *current_vector, *goal_vector;
+    struct Vector current_vector, goal_vector;
 
-    current_vector->x = current_coordinate->latitude - initial_coordinate->latitude;
-    current_vector->y = current_coordinate->longitude - initial_coordinate->longitude;
+    current_vector.x = current_coordinate->latitude - initial_coordinate->latitude;
+    current_vector.y = current_coordinate->longitude - initial_coordinate->longitude;
 
-    goal_vector->x = goal_coordinate->latitude - initial_coordinate->latitude;
-    goal_vector->y = goal_coordinate->longitude - initial_coordinate->longitude;
+    goal_vector.x = goal_coordinate->latitude - initial_coordinate->latitude;
+    goal_vector.y = goal_coordinate->longitude - initial_coordinate->longitude;
 
     double to_goal_inner = inner_product(current_vector, goal_vector);
     double to_goal_cross = cross_product(current_vector, goal_vector);

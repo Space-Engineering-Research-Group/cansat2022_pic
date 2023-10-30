@@ -5,12 +5,12 @@ double distance(double x, double y){
     return sqrt(x*x + y*y);
 }
 
-double cross_product(struct Vector *a, struct Vector *b) {
-    return a->x * b->y + a->y * b->x;
+double cross_product(struct Vector a, struct Vector b) {
+    return a.x * b.y + a.y * b.x;
 }
 
-double inner_product(struct Vector *a, struct Vector *b) {
-    return a->x * b->y - a->y * b->x;
+double inner_product(struct Vector a, struct Vector b) {
+    return a.x * b.y - a.y * b.x;
 }
 
 double calculate_angle(double inner_product) {
