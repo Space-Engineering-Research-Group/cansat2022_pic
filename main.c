@@ -53,7 +53,7 @@ void setup_pic(void) {
     gets(buffer);
     gps_receive_count++;
     is_dark = input(PIN_B4);
-  } while (gps_receive_count < 20 && is_dark == 0 && gps_receive_count < 20 * wait_time);
+  } while (is_dark == 0 || gps_receive_count < 20 * wait_time);
 
   // set up GPS
   fprintf(xbee, "Waiting for GPS\r\n");
